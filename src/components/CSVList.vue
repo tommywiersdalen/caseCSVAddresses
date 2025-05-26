@@ -17,17 +17,13 @@
         <p v-else class="text-red-500">Du må være innlogget for å bruke denne applikasjonen.</p>
         <div>
         </div>
-        <Modal :show="openMap">
-            <AddressMap :address="selectedAddress" />
-        </Modal>
     </div>
 </template>
 <script setup lang="ts">
     import { ref, watch } from 'vue';
     import Papa from 'papaparse';
     import { useAuthStore } from '../stores/authStore';
-    import Modal from './Modal.vue';
-    import AddressMap from './AddressMap.vue';
+
 
 
     const store = useAuthStore();
@@ -38,7 +34,6 @@
 
     const csvFilePath = ref<string>('Adresser Utsira.csv');
 
-    const selectedAddress = ref<Record<string, string> | null>(null);
     const emit = defineEmits(['rowClicked']);
     defineProps({
         openMap: {

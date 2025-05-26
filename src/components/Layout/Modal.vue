@@ -6,7 +6,7 @@
 </script>
 <template>
     <Teleport to="body">
-        <div v-show="show" class="fixed inset-0 flex items-center justify-center z-2">
+        <div v-show="show" class="fixed inset-0 flex items-start   my-10 justify-center z-2">
             <div class="bg-blue-100 rounded shadow-2xl p-8 mx-auto my-20 w-1/2">
                 <div>
                     <slot></slot>

@@ -20,7 +20,7 @@
 </template>
 <script setup lang="ts">
     import CSVList from './CSVList.vue';
-    import Modal from './Modal.vue';
+    import Modal from './Layout/Modal.vue';
     import LoginCard from './LoginCard.vue';
     import { useAuthStore } from '../stores/authStore';
     import AddressMap from './AddressMap.vue';
