@@ -9,11 +9,8 @@
 
   const store = useAuthStore();
   const open = ref<boolean>(false);
-  const setOpen = () => {
-    open.value = true;
-  };
-  const setClose = () => {
-    open.value = false;
+  const handleToggleModal = () => {
+    open.value = !open.value;
   };
   const handleLogInUser1 = () => {
     store.loginUser1();
@@ -25,13 +22,13 @@
   };
   const handleLogout = () => {
     store.logout();
-    setClose();
+    open.value = false;
   };
 
 </script>
 <template>
-  <MainLayout @login="setOpen" @logout="handleLogout">
-    <Modal :show="open">
+  <MainLayout @login="handleToggleModal" @logout="handleLogout">
+    <Modal :show="open" @close="handleToggleModal">
       <LoginCard @loginUser1="handleLogInUser1" @loginUser2="handleUserLogin2" />
     </Modal>
     <Index />

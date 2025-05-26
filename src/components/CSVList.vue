@@ -4,17 +4,16 @@
             <caption class="text-lg font-semibold mb-4">CSV Data fra {{ csvFilePath }}</caption>
             <thead>
                 <tr>
-                    <th v-for="(header, index) in headers" :key="index">{{ header }}</th>
+                    <th class="border p-4 bg-gray-300" v-for="(header, index) in headers" :key="index">{{ header }}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(row, index) in parsedData" :key="index">
-                    <td v-for="(cell, index) in row" :key="index">{{ cell }}</td>
+                    <td class="border p-4" v-for="(cell, index) in row" :key="index">{{ cell }}</td>
                 </tr>
             </tbody>
         </table>
-        <p v-else class="text-red-500">You must be logged in to view the CSV data.</p>
-        <p v-if="!store.isAuthenticated" class="text-red-500">Please log in to access the data.</p>
+        <p v-else class="text-red-500">Du må være innlogget for å bruke denne applikasjonen.</p>
     </div>
 </template>
 <script setup lang="ts">
@@ -61,6 +60,7 @@
 
                     if (parsedData.value.length > 0) {
                         headers.value = Object.keys(parsedData.value[0]);
+                        headers.value = headers.value.map(header => header.toUpperCase());
                     }
                 },
                 error: (error) => {
