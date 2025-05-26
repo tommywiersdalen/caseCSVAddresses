@@ -29,9 +29,6 @@
     const parsedData = ref<Record<string, string>[]>([]);
     const headers = ref<string[]>([]);
 
-
-
-
     const csvFilePath = ref<string>('Adresser Utsira.csv');
     const fetchCSVFile = async () => {
         try {
