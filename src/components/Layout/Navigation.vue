@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col min-h-svh">
+    <div class="flex flex-col ">
         <header class="flex justify-between items-center bg-blue-500 text-white p-4">
             <h1>Addressliste</h1>
             <div>
@@ -18,14 +18,9 @@
                 </button>
             </div>
         </header>
-        <main class="flex grow items-center justify-center mt-8 mb-8">
-            <slot></slot>
-        </main>
     </div>
 </template>
 <script setup lang="ts">
-
     import { useAuthStore } from '../../stores/authStore';
     const store = useAuthStore();
-
 </script>

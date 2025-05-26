@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container mx-auto p-4">
         <table v-if="store.isAuthenticated" class="min-w-full border-collapse">
             <caption class="text-lg font-semibold mb-4">CSV Data fra {{ csvFilePath }}</caption>
             <thead>
@@ -8,18 +8,26 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(row, index) in parsedData" :key="index">
-                    <td class="border p-4" v-for="(cell, index) in row" :key="index">{{ cell }}</td>
+                <tr class="hover:bg-gray-200" v-for="row in parsedData" :key="row.ADRESSEID"
+                    @click="handleRowClicked(row)">
+                    <td class="border p-4 " v-for="(cell, index) in row" :key="index">{{ cell }}</td>
                 </tr>
             </tbody>
         </table>
         <p v-else class="text-red-500">Du må være innlogget for å bruke denne applikasjonen.</p>
+        <div>
+        </div>
+        <Modal :show="openMap">
+            <AddressMap :address="selectedAddress" />
+        </Modal>
     </div>
 </template>
 <script setup lang="ts">
     import { ref, watch } from 'vue';
     import Papa from 'papaparse';
     import { useAuthStore } from '../stores/authStore';
+    import Modal from './Modal.vue';
+    import AddressMap from './AddressMap.vue';
 
 
     const store = useAuthStore();
@@ -29,6 +37,16 @@
     const headers = ref<string[]>([]);
 
     const csvFilePath = ref<string>('Adresser Utsira.csv');
+
+    const selectedAddress = ref<Record<string, string> | null>(null);
+    const emit = defineEmits(['rowClicked']);
+    defineProps({
+        openMap: {
+            type: Boolean,
+            default: false
+        }
+    });
+
     const fetchCSVFile = async () => {
         try {
             const response = await fetch(csvFilePath.value);
@@ -70,6 +88,10 @@
         } else {
             console.warn('No CSV file to parse');
         }
+    };
+    const handleRowClicked = (row: Record<string, string>) => {
+        emit('rowClicked', row);
+
     };
 
     fetchCSVFile().then(() => {
