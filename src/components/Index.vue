@@ -1,19 +1,11 @@
 <template>
     <div>
-        <Modal :show="open">
-            <template #default>
-                <LoginCard @loginUser1="handleLogInUser1" @loginUser2="handleUserLogin2" />
-            </template>
-            <template #footer>
-                <button class="bg-gray-200 border border-gray-600 px-6 py-2 rounded text-black hover:bg-gray-300"
-                    @click="$emit('close')">Lukk</button>
-            </template>
+        <Modal :show="open" @close="emit('close')">
+            <LoginCard @loginUser1="handleLogInUser1" @loginUser2="handleUserLogin2" />
         </Modal>
         <Modal :show="openMap" @close="openMap = false">
-            <template #default>
-                <h2 class="text-lg font-bold mb-4">Kart over adresse</h2>
-                <AddressMap :address="selectedAddress" />
-            </template>
+            <h2 class="text-lg font-bold mb-4">Kart over adresse</h2>
+            <AddressMap :address="selectedAddress" />
         </Modal>
         <CSVList @rowClicked="handleClickedRow" />
     </div>
